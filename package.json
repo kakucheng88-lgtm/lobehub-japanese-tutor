@@ -40,6 +40,7 @@
     "apps/desktop/src/main"
   ],
   "scripts": {
+    "prebuild": "bun run db:migrate",
     "build": "bun run build:spa && bun run build:spa:auth && bun run build:spa:workbench && bun run build:spa:copy && bun run build:next",
     "build:analyze": "cross-env NODE_OPTIONS=--max-old-space-size=81920 next experimental-analyze",
     "build:docker": "pnpm run build:spa && pnpm run build:spa:mobile && pnpm run build:spa:auth && pnpm run build:spa:workbench && pnpm run build:spa:copy && cross-env NODE_OPTIONS=--max-old-space-size=8192 DOCKER=true next build",
@@ -57,7 +58,7 @@
     "check": "bun run .agents/scripts/check/cli.ts",
     "clean:node_modules": "bash -lc 'set -e; echo \"Removing all node_modules...\"; rm -rf node_modules; pnpm -r exec rm -rf node_modules; rm -rf apps/desktop/node_modules; echo \"All node_modules removed.\"'",
     "db:generate": "drizzle-kit generate && npm run workflow:dbml",
-    "db:migrate": "drizzle-kit push",
+    "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
     "db:visualize": "dbdocs build docs/development/database-schema.dbml --project lobe-chat",
     "desktop:build:all": "npm run desktop:build:main",
